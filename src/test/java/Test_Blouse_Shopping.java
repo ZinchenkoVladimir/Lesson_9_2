@@ -11,14 +11,14 @@ import java.util.concurrent.TimeUnit;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
 
-public class Test_Account_Creation {
+public class Test_Blouse_Shopping {
 
     private static WebDriver driver;
     private Home_Page home_page;
-    private Sign_in_Page sign_in_page;
-    private Create_an_account_Page create_an_account_page;
+    private Search_Blouse_Page search_blouse_page;
+    private Cart_Summary_Page cart_summary_page;
 
-    public Test_Account_Creation(){
+    public Test_Blouse_Shopping(){
     }
 
     @Before
@@ -38,8 +38,8 @@ public class Test_Account_Creation {
         WebDriverRunner.supportsModalDialogs();
 
         home_page = new Home_Page(driver);
-        sign_in_page = new Sign_in_Page(driver);
-        create_an_account_page = new Create_an_account_Page(driver);
+        search_blouse_page = new Search_Blouse_Page(driver);
+        cart_summary_page = new Cart_Summary_Page(driver);
     }
 
     @Test
@@ -49,14 +49,16 @@ public class Test_Account_Creation {
                 .open_Home_Page()
                 .search_blouse();
 
-        sign_in_page
-                .email_address_set()
-                .create_an_account_button_click();
+        search_blouse_page
+                .list_switch()
+                .add_to_cart_button_click()
+                .proceed_to_checkout_button_click();
 
-        create_an_account_page
-                .fill_account_form()
-                .register_button_click()
-                .verify_validation_message();
+        cart_summary_page
+                .plus_button_click()
+                .verify_totals()
+                .delete_button_click()
+                .verify_empty_cart();
     }
 
     @After
