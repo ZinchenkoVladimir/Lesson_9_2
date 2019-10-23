@@ -1,10 +1,17 @@
 import com.codeborne.selenide.WebDriverRunner;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.opera.OperaDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,13 +28,22 @@ public class Test_Blouse_Shopping {
     public Test_Blouse_Shopping(){
     }
 
+    @BeforeClass
+    public static void setDriver(){
+        ChromeDriverManager.getInstance().setup();
+        WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.operadriver().setup();
+        WebDriverManager.edgedriver().setup();
+        WebDriverManager.iedriver().setup();
+    }
+
     @Before
     public void setUp() throws Exception {
 
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setHeadless(true);
-        driver = new ChromeDriver(
+        driver = new OperaDriver(
 //                chromeOptions
         );
         driver.manage().window().maximize();
