@@ -9,6 +9,13 @@ import static com.codeborne.selenide.Selenide.$;
 
 class Cart_Summary_Page {
 
+    private String total_products_prise = "$54.00";
+    private String total_shipping_price = "$2.00";
+    private String total_price_amount = "$56.00";
+    private String total_tax_amount = "$0.00";
+    private String warning_message_text = "Your shopping cart is empty.";
+    private String empty_cart_placeholder_text = "(empty)";
+
     @FindBy(id = "cart_quantity_up_2_7_0_0")
     private WebElement plus_button;
 
@@ -49,12 +56,12 @@ class Cart_Summary_Page {
     }
 
     Cart_Summary_Page verify_totals() throws Exception {
-        $(total_for_blouse).waitUntil(enabled,10000).shouldHave(exactText("$54.00"));
-        $(total_products).waitUntil(enabled,10000).shouldHave(exactText("$54.00"));
-        $(total_shipping).waitUntil(enabled,10000).shouldHave(exactText("$2.00"));
-        $(total_price_without_tax).waitUntil(enabled,10000).shouldHave(exactText("$56.00"));
-        $(total_tax).waitUntil(enabled,10000).shouldHave(exactText("$0.00"));
-        $(total_price).waitUntil(enabled,10000).shouldHave(exactText("$56.00"));
+        $(total_for_blouse).waitUntil(enabled,10000).shouldHave(exactText(total_products_prise));
+        $(total_products).waitUntil(enabled,10000).shouldHave(exactText(total_products_prise));
+        $(total_shipping).waitUntil(enabled,10000).shouldHave(exactText(total_shipping_price));
+        $(total_price_without_tax).waitUntil(enabled,10000).shouldHave(exactText(total_price_amount));
+        $(total_tax).waitUntil(enabled,10000).shouldHave(exactText(total_tax_amount));
+        $(total_price).waitUntil(enabled,10000).shouldHave(exactText(total_price_amount));
         return this;
     }
 
@@ -64,8 +71,7 @@ class Cart_Summary_Page {
     }
 
     void verify_empty_cart() throws Exception {
-        $(warning_message).waitUntil(enabled,10000).shouldHave(exactText("Your shopping cart is empty."));
-        $(empty_cart_placeholder).waitUntil(enabled,10000).shouldHave(exactText("(empty)"));
-
+        $(warning_message).waitUntil(enabled,10000).shouldHave(exactText(warning_message_text));
+        $(empty_cart_placeholder).waitUntil(enabled,10000).shouldHave(exactText(empty_cart_placeholder_text));
     }
 }
